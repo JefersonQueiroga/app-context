@@ -1,60 +1,70 @@
 import { View,Text,TextInput, StyleSheet,TouchableOpacity } from 'react-native';
+import { Espetinho } from '@/model/Espetinho';
 
 
+interface EspetinhoPros{
+    item: Espetinho;
+    add: (espetinho: Espetinho) => void;
+    remove: (id: number) => void;
+}
 
-export function Item(){
-  return (
-    <View style={styles.container}>
-        <View>
-            <Text style={styles.text}>Espetinho Carne de Boi teste tes</Text>
-            <Text>Quantidade: 01</Text>
-        </View>
+export function Item({item,add,remove}: EspetinhoPros){
+
+    
+    return (
+        <View style={styles.container}>
+            <View style={styles.containerDescription}>
+                <Text style={styles.text}>{item.name}</Text>
+                <Text>Preço: {item.price}</Text>
+            </View>
             <View style={styles.containerButton} >    
-                <TouchableOpacity style={styles.buttonUp}>
+                <TouchableOpacity style={styles.buttonUp} onPress={()=>add(item)}>
                     <Text>+</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonDown}>
+                <TouchableOpacity style={styles.buttonDown} onPress={()=>remove(item.id)}>
                     <Text>-</Text>
                 </TouchableOpacity>
             </View>    
-   </View>  
-  )
+    </View>  
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
+        height: 60,
         flexDirection: 'row',
         justifyContent: "space-between",
-        paddingLeft: 16,
-        width: '100%',
         backgroundColor: '#304163',
-        height: 80,
         alignItems: 'center',
         marginTop: 16,
         borderRadius: 8,
     },
     containerDescription:{
-        flexDirection:"column"
+        flexDirection:"column",
+        width:"70%",
     },
     containerButton:{
         flexDirection:"row",
-        height:"100%"
+        height:"100%",
+        width:"30%",
+        
     },
     buttonUp:{
-        width:56,
         backgroundColor:"#0E9577",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        flex:1
     },
     buttonDown:{
-        width:56,
         backgroundColor:"#F22424",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        flex:1
     },
     text:{
         fontSize: 15,
-        color: '#FFFFFF'
-    }
+        color: '#FFFFFF',
+     }
 
 });
